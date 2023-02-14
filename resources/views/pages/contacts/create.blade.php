@@ -27,7 +27,7 @@
 
                                         <!-- Read Owners -->
                                         @foreach($userData['data'] as $user)
-                                            <option value='{{ $user->id }}'>{{ $user->username }}</option>
+                                            <option value='{{ $user->username }}'>{{ $user->username }}</option>
                                         @endforeach
                                     
                                     </select>

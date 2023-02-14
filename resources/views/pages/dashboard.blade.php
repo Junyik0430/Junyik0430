@@ -11,8 +11,8 @@
                             <div class="col-8">
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Money</p>
-                                    <h5 class="font-weight-bolder">
-                                        $53,000
+                                    <h5 class="font-weight-bolder" id="totalThisTearEarn">
+                                        
                                     </h5>
                                     <p class="mb-0">
                                         <span class="text-success text-sm font-weight-bolder">+55%</span>
@@ -36,8 +36,8 @@
                             <div class="col-8">
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Users</p>
-                                    <h5 class="font-weight-bolder">
-                                        2,300
+                                    <h5 class="font-weight-bolder" id="evgMonthEarn">
+                                      
                                     </h5>
                                     <p class="mb-0">
                                         <span class="text-success text-sm font-weight-bolder">+3%</span>
@@ -376,6 +376,12 @@
 @push('js')
     <script src="./assets/js/plugins/chartjs.min.js"></script>
     <script>
+        document.getElementById("totalThisTearEarn").innerHTML = "{{$totalYearEarn}}";
+        document.getElementById("evgMonthEarn").innerHTML = "{{$evgMonthEarn}}";
+
+
+
+
         var ctx1 = document.getElementById("chart-line").getContext("2d");
 
         var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
