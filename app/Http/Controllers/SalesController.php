@@ -56,28 +56,7 @@ class SalesController extends Controller
             DB::rollback();
             Toastr::error('Add Estimates fail :)','Error');
             return redirect()->back();
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+        }    
         Sales::create($request->post());
 
         return redirect()->route('sales.index')->with('success','Sales has been created successfully.');
@@ -92,7 +71,15 @@ class SalesController extends Controller
 
     public function edit(Sales $sales)
     {
+
         return view('pages.sales.edit',compact('sales'));
+    }
+
+    public function cancelOrder($id)
+    {
+        $sales = Sales::find($id);
+        $sales->update(['s_status'=>'0']);
+        return redirect()->route('sales.index')->with('success','Sales has been cancel successfully.');
     }
 
     public function update(Request $request, Sales $sales)

@@ -69,9 +69,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/sales.import', [SalesController::class, 'importSales'])->name('sales.import');
 	Route::post('/sales', [SalesController::class, 'store'])->name('sales.store');
 	Route::get('/sales.{id}', [SalesController::class, 'edit'])->name('sales.edit');
+	Route::get('/sales/cancelOrder/{id}', [SalesController::class, 'cancelOrder'])->name('sales.cancelOrder');
 	Route::post('/sales/update/{id}', [SalesController::class, 'update'])->name('sales.update');
     Route::post('/sales.upload', [SalesController::class, 'uploadSales'])->name('sales.upload');
-
+	
 	//product
 	Route::get('/products.index', [ProductController::class, 'index'])->name('products.index');
 	Route::get('/products.create', [ProductController::class, 'create'])->name('products.create');

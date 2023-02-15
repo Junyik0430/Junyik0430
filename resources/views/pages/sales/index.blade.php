@@ -64,11 +64,19 @@
                                         <p class="text-sm font-weight-bold mb-0">{{ $sale->quantity}}</p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                        <p class="text-sm font-weight-bold mb-0">{{ $sale->s_status}}</p>
+                                        <p class="text-sm font-weight-bold mb-0">@if( $sale->s_status==1)
+                            Complete
+                            @else
+                              Cancel  
+                            @endif</p>
                                     </td>
                                     <td class="align-middle text-end">
                                         <div class="d-flex px-3 py-1 justify-content-center align-items-center">
-                                            <form action="{{ route('sales.destroy',$sale->id) }}" method="POST">
+                                            <form action="{{ route('sales.destroy',$sale->id) }}" method="POST"> 
+                                            @if( $sale->s_status==1)
+                                            <a class="btn btn-success btn-icon" href="{{ route('sales.cancelOrder', $sale->id) }}">Cancel Order</a>
+                                            @endif
+                                                
                                                 <a class="btn btn-success btn-icon" href="{{ route('sales.edit', $sale->id) }}">Edit</a>
                                                 @csrf
                                                 @method('DELETE')
