@@ -144,7 +144,7 @@
                     </div>
                     <div class="card-body p-3">
                         <div class="chart">
-                            <canvas id="" class="chart-canvas" height="300"></canvas>
+                            <canvas id="myChart" class="chart-canvas" height="300"></canvas>
                         </div>
                     </div>
                 </div>
@@ -375,13 +375,11 @@
 
 @push('js')
     <script src="./assets/js/plugins/chartjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script>
         document.getElementById("totalThisTearEarn").innerHTML = "{{$totalYearEarn}}";
         document.getElementById("evgMonthEarn").innerHTML = "{{$evgMonthEarn}}";
-
-
-
-
+        
         var ctx1 = document.getElementById("chart-line").getContext("2d");
 
         var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
@@ -468,88 +466,96 @@
                 },
             },
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        var xValues = [
+            @foreach($top5sales as $top)
+            "{{ $top->p_name }}",
+            @endforeach
+        ];
+var yValues = [
+    @foreach($top5sales as $top)
+            "{{ $top->total }}",
+            @endforeach
+];
+var barColors = ["red", "green","blue","orange","brown"];
+
+new Chart("myChart", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "top 5 Sales Product"
+    }
+  }});
     </script>
 
     <!-- Chart JS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
-    <script>
-        const config = {
-        type: 'line',
-        data: [
-            @foreach ($sales as $sale)
-                '{{$sale->total}}',
-            @endforeach
-            1,2,3,4,5,6,7,8,9,10,11,12
-        ],
-        options: {
-            responsive: true,
-            interaction: {
-            mode: 'index',
-            intersect: false,
-            },
-            stacked: false,
-            plugins: {
-            title: {
-                display: true,
-                text: 'Sales Report'
-            }
-            },
-            scales: {
-            y: {
-                type: 'linear',
-                display: true,
-                position: 'left',
-            },
-            y1: {
-                type: 'linear',
-                display: true,
-                position: 'right',
 
-                // grid line settings
-                grid: {
-                drawOnChartArea: false, // only want the grid lines for one axis to show up
-                },
-            },
-            }
-        },
-        };
-
-        const DATA_COUNT = 12;
-        const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
-
-        const labels = Utils.months({count: 12});
-        const data = {
-        labels: labels,
-        datasets: [
-            {
-            label: 'Product 1',
-            data: Utils.numbers(NUMBER_CFG),
-            borderColor: Utils.CHART_COLORS.red,
-            backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-            yAxisID: 'y',
-            },
-            {
-            label: 'Product2',
-            data: Utils.numbers(NUMBER_CFG),
-            borderColor: Utils.CHART_COLORS.blue,
-            backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
-            yAxisID: 'y1',
-            }
-        ]
-        };
-
-        const actions = [
-        {
-            name: 'Randomize',
-            handler(chart) {
-            chart.data.datasets.forEach(dataset => {
-                dataset.data = Utils.numbers({count: chart.data.labels.length, min: -100, max: 100});
-            });
-            chart.update();
-            }
-        },
-        ];
-    </script>
 @endpush

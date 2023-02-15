@@ -27,7 +27,7 @@ use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\ContactController; 
 use App\Http\Controllers\CategoryController; 
 use App\Http\Controllers\SalesController;            
-            
+use App\Http\Controllers\ProductController;             
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
 	Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
@@ -71,6 +71,17 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/sales.{id}', [SalesController::class, 'edit'])->name('sales.edit');
 	Route::post('/sales/update/{id}', [SalesController::class, 'update'])->name('sales.update');
     Route::post('/sales.upload', [SalesController::class, 'uploadSales'])->name('sales.upload');
+
+	//product
+	Route::get('/products.index', [ProductController::class, 'index'])->name('products.index');
+	Route::get('/products.create', [ProductController::class, 'create'])->name('products.create');
+	Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+	Route::get('/products.import', [ProductController::class, 'importproducts'])->name('products.import');
+	Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+	Route::get('/products.{id}', [ProductController::class, 'edit'])->name('products.edit');
+	Route::post('/products/update/{id}', [ProductController::class, 'update'])->name('products.update');
+    Route::post('/products.upload', [ProductController::class, 'uploadproducts'])->name('products.upload');
+
 
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');

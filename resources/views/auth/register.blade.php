@@ -1,5 +1,24 @@
 @extends('layouts.app')
-
+<script type="text/javascript">
+function callbackThen(response) {
+    // read Promise object
+    response.json().then(function(data) {
+        console.log(data);
+        if(data.success && data.score > 0.5) {
+            console.log('valid recpatcha');
+        } else {
+            document.getElementById('registerForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                alert('recpatcha error');
+            });
+        }
+    });
+}
+ 
+function callbackCatch(error){
+    console.error('Error:', error)
+}
+</script>
 @section('content')
     <main class="main-content  mt-0">
         <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
