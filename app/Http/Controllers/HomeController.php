@@ -29,7 +29,7 @@ class HomeController extends Controller
         $sales = Sales::orderBy('id','asc')->paginate();
         $totalYearEarn=DB::table('sales')->where('year',2023)->sum('total');
         $evgMonthEarn=$totalYearEarn/12;
-        $top5sales=DB::select("SELECT SUM(total) as total ,p_name FROM sales GROUP BY p_name DESC LIMIT 5");
+        $top5sales=DB::select("SELECT SUM(total) as total,SUM(quantity ) as quantity  ,p_name FROM sales GROUP BY p_name DESC LIMIT 5");
         $totalcancelOrder=DB::table('sales')->where('s_status',0)->count('total');
 
         return view('pages.dashboard',compact('sales','totalYearEarn','evgMonthEarn','top5sales','totalcancelOrder'));

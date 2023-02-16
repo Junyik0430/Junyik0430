@@ -133,18 +133,20 @@
                                 </p>
                             </div>
                             <div class ="col-6">
-                                <select class="form-control select2" name="sale" required id="sale">
-                                    <option value="option_select" disabled selected>Please Select</option>
-                                    @foreach($sales as $sale)
-                                        <option value="{{ $sale->id }}">{{ $sale->p_name}}</option>
-                                    @endforeach
+                                <select class="form-control select2" required id="chartType">
+                                <option value="line">Population</option>
+                                <option value="bar">Precipitation</option>
+                                <option value="pie">Ethnicity</option>
+                                <option value="radar">Activity</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="card-body p-3">
                         <div class="chart">
-                            <canvas id="myChart" class="chart-canvas" height="300"></canvas>
+                            <canvas id="barChart" class="chart-canvas" height="300"></canvas>
+                            <canvas id="pieChart" class="chart-canvas" height="300"></canvas>
+                            
                         </div>
                     </div>
                 </div>
@@ -376,12 +378,51 @@
 @push('js')
     <script src="./assets/js/plugins/chartjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+
     <script>
+        document.
+          window.onload = showHide;
         document.getElementById("totalThisTearEarn").innerHTML = "{{$totalYearEarn}}";
         document.getElementById("evgMonthEarn").innerHTML = "{{$evgMonthEarn}}";
         document.getElementById("totalcancelOrder").innerHTML = "{{$totalcancelOrder}}";
 
         
+        let select = document.querySelector('#chartType');
+
+select.addEventListener('change', showHide);
+
+function showHide() {
+  // concat Chart for the canvas ID
+  let chart = this.options[select.selectedIndex].value + 'Chart';
+    document.querySelectorAll('canvas')
+    .forEach(c => {
+      c.style.display = (c.id === chart) ? 'inherit' : 'none';
+    })
+}
+
+var labels = [
+            @foreach($top5sales as $top)
+            "{{ $top->p_name }}",
+            @endforeach
+        ];
+        var data = [
+            @foreach($top5sales as $top)
+                    "{{ $top->quantity }}",
+                    @endforeach
+        ];
+        var barColors = ["red", "green","blue","orange","brown"];
+
+
+
+
+
+
+
+
+
+
+
         var ctx1 = document.getElementById("chart-line").getContext("2d");
 
         var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
@@ -468,14 +509,72 @@
                 },
             },
         });
+        
 
+//pic Chart
+        var ctx = document.getElementById("pieChart");
+        var PieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels:labels,
+            datasets: [{
+            label: "Ethnicity",
+            data: data,
+            backgroundColor: barColors,
+            }],
+            cutoutPercentage: [0]
 
+        },
+        options: {
+            title: {
+            display: true,
+            text: "Vancouver Ethnicity",
+            fontSize: "20",
+            fontColor: "rgba(20,20,20,1)"
+            },
+        }
+        });
 
-
-
-
-
-
+//barchart
+var ctx = document.getElementById("barChart");
+var BarChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: labels,
+    datasets: [{
+      label: "Precipitation Data",
+      data:data,
+      backgroundColor: barColors,
+      pointHoverBackgroundColor: "#fff",
+      hoverBorderColor: "#fff",
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Vancouver Precipitation",
+      fontSize: 20,
+      fontColor: "rgba(10,0,20,0.9)"
+    },
+    legend: {
+      display: false,
+      position: 'right',
+      labels: {
+        fontColor: '#000'
+      }
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          callback: function(value, index, values) {
+            return value + " pcs"
+          }
+        }
+      }]
+    }
+  },
+});
 
 
 
@@ -525,17 +624,8 @@
 
 
         
-        var xValues = [
-            @foreach($top5sales as $top)
-            "{{ $top->p_name }}",
-            @endforeach
-        ];
-var yValues = [
-    @foreach($top5sales as $top)
-            "{{ $top->total }}",
-            @endforeach
-];
-var barColors = ["red", "green","blue","orange","brown"];
+       
+
 
 new Chart("myChart", {
   type: "bar",
@@ -554,6 +644,77 @@ new Chart("myChart", {
     }
   }});
     </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- Chart JS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
