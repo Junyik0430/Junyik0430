@@ -17,6 +17,14 @@ class FortifyServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
+
+    /**
+    * The path to the "home" route for your application.
+    *
+    * @var string
+    */
+    public const HOME = '/dashboard';
+
     public function register(): void
     {
         //
@@ -41,12 +49,25 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::requestPasswordResetLinkView(function () {
-            return view('auth.reset-password');
+            return view('auth.forgot-password');
+        });
+
+        Fortify::resetPasswordView(function ($request) {
+            return view('auth.reset-password', ['request' => $request]);
+        });
+
+        Fortify::confirmPasswordView(function(){
+            return view('auth.password-confirm');
         });
 
         Fortify::verifyEmailView(function () {
             return view('auth.verify');
         });
+
+        Fortify::twoFactorChallengeView(function () {
+            return view('auth.two-factor-challange');
+        });
+
 
         RateLimiter::for('login', function (Request $request) {
             $email = (string) $request->email;

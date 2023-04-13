@@ -70,20 +70,21 @@
                               Cancel  
                             @endif</p>
                                     </td>
+                                    @if(Auth::user()->role_as == "1")
                                     <td class="align-middle text-end">
                                         <div class="d-flex px-3 py-1 justify-content-center align-items-center">
                                             <form action="{{ route('sales.destroy',$sale->id) }}" method="POST"> 
                                             @if( $sale->s_status==1)
-                                            <a class="btn btn-success btn-icon" href="{{ route('sales.cancelOrder', $sale->id) }}">Cancel Order</a>
+                                            <a class="btn btn-success btn-icon" href="{{ route('sales.cancelOrder', $sale->id) }}">Cancel Sales</a>
                                             @endif
                                                 
-                                                <a class="btn btn-success btn-icon" href="{{ route('sales.edit', $sale->id) }}">Edit</a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-icon">Delete</button>
                                             </form>
                                         </div>
                                     </td>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>

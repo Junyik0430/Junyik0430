@@ -78,17 +78,16 @@ $('table').on('click', '.RemoveRow', function(){
 
 $('table').on('change', '.selectProduct', function(){
     var productname=$(this).find(":selected").val();
-    const data =[
+    var data =[
                 @foreach($products['data'] as $product)
                 {
                     name: '{{$product->p_name}}',
-                    price: '{{$product->p_price}}'
+                   price: '{{$product->p_price}}'
                 },
                 @endforeach
                 ];
-     var price=data.find(name => productname);
-
-    $(this).closest('tr').find('#unit_cost').val(price['price']);
+   var price=data.find((data)=>data.name===productname);
+   $(this).closest('tr').find('#unit_cost').val(price['price']);
 });
 
 $('table').on('change', '.qty', function(){

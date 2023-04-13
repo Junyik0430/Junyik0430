@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Mail;
 
@@ -38,9 +39,10 @@ class PageController extends Controller
         return view("pages.profile-static");
     }
 
-    public function signin()
+    
+    public function factorauthentication()
     {
-        return view("pages.sign-in-static");
+        return view("pages.2FA");
     }
 
     public function signup()

@@ -12,7 +12,7 @@ class SalesController extends Controller
 {
     public function index()
     {
-        $sales = Sales::orderBy('id','asc')->paginate();
+        $sales = Sales::orderBy('id','asc')->get();
 
         return view('pages.sales.index', compact('sales'));
     }
@@ -52,9 +52,8 @@ class SalesController extends Controller
             return redirect()->route('sales.index')->with('success','Sales has been created successfully.');
         } catch(\Exception $e) {
 
-            dd($e);
             DB::rollback();
-            Toastr::error('Add Estimates fail :)','Error');
+            //Toastr::error('Add Estimates fail :)','Error');
             return redirect()->back();
         }    
         Sales::create($request->post());
@@ -69,9 +68,9 @@ class SalesController extends Controller
         return view('pages.sales.index', compact('sales'));
     }
 
-    public function edit(Sales $sales)
-    {
-
+    public function edit( $id)
+    {   
+        $sales=Sales::find($id);
         return view('pages.sales.edit',compact('sales'));
     }
 

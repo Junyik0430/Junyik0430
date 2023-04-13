@@ -25,8 +25,8 @@
                                         <option value='0'>-- Select Owner --</option>
 
                                         <!-- Read Owners -->
-                                        @foreach($userData['data'] as $user)
-                                            <option value='{{ $user->email }}'>{{ $user->email }}</option>
+                                        @foreach($contactData['data'] as $contact)
+                                            <option value='{{ $contact->c_email }}'>{{ $contact->c_email }}</option>
                                         @endforeach
                                     
                                     </select>

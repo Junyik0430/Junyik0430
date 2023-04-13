@@ -7,30 +7,26 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>,
-                    made with <i class="fa fa-heart"></i> by
-                    <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
-                    &
-                    <a href="https://www.updivision.com" class="font-weight-bold" target="_blank">UPDIVISION</a>
-                    for a better web.
+                    terms and condition
                 </div>
             </div>
             <div class="col-lg-6">
                 <ul class="nav nav-footer justify-content-center justify-content-lg-end">
                     <li class="nav-item">
-                        <a href="https://www.updivision.com" class="nav-link text-muted" target="_blank">UPDIVISION</a>
+                        <a href="{{ route('home') }}" class="nav-link text-muted" target="_blank">{{ config('app.name') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
+                        <a href="{{ route('sales.index') }}" class="nav-link text-muted" target="_blank">Sales</a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
+                        <a href="{{ route('contacts.index') }}" class="nav-link text-muted" target="_blank">Contacts</a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
+                        <a href="{{ route('products.index') }}" class="nav-link text-muted" target="_blank">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted"
-                            target="_blank">License</a>
+                        <a href="{{ route('suggestForm') }}" class="nav-link pe-0 text-muted"
+                            target="_blank">Send Email</a>
                     </li>
                 </ul>
             </div>

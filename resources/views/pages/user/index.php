@@ -98,12 +98,16 @@
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-sm font-weight-bold mb-0">22/03/2022</p>
                                     </td>
-                                    <td class="align-middle text-end">
-                                        <div class="d-flex px-3 py-1 justify-content-center align-items-center">
-                                            <p class="text-sm font-weight-bold mb-0 cursor-pointer">Edit</p>
-                                            <p class="text-sm font-weight-bold mb-0 ps-2 cursor-pointer">Delete</p>
-                                        </div>
-                                    </td>
+                                    @if(Auth::user()->role_as == "1")
+                        <td>
+                        <form action="{{ route('user.destroy',$user->id) }}" method="Post">
+                                <a class="btn btn-primary" href="{{ route('user.edit',$user->id) }}"><i class="tim-icons icon-pencil"></i> Edit</a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger"><i class="tim-icons icon-trash-simple"></i> Delete</button>
+                            </form>                          
+                        </td>
+                        @endif
                                 </tr>
                             </tbody>
                         </table>

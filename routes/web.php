@@ -27,11 +27,12 @@ use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\ContactController; 
 use App\Http\Controllers\CategoryController; 
 use App\Http\Controllers\SalesController;            
-use App\Http\Controllers\ProductController;             
+use App\Http\Controllers\ProductController;   
+use App\Http\Controllers\UserController;          
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
 	Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
 	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
@@ -82,6 +83,16 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/products.{id}', [ProductController::class, 'edit'])->name('products.edit');
 	Route::post('/products/update/{id}', [ProductController::class, 'update'])->name('products.update');
     Route::post('/products.upload', [ProductController::class, 'uploadproducts'])->name('products.upload');
+
+	//User
+	Route::get('/users.index', [UserController::class, 'index'])->name('user.index');
+	Route::get('/users.create', [UserController::class, 'create'])->name('user.create');
+	Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+	Route::get('/users.import', [UserController::class, 'importproducts'])->name('user.import');
+	Route::post('/users', [UserController::class, 'store'])->name('user.store');
+	Route::get('/users.{id}', [UserController::class, 'edit'])->name('user.edit');
+	Route::post('/users/update/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::post('/users.upload', [UserController::class, 'uploadproducts'])->name('user.upload');
 
 
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');

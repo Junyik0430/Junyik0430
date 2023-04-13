@@ -7,25 +7,32 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+                        
                             <div class="card card-plain">
                                 <div class="card-header pb-0 text-start">
-                                    <h4 class="font-weight-bolder">Verify your email</h4>
+                                    <h4 class="font-weight-bolder">Reset your password</h4>
                                     <p class="mb-0">Enter your email and please wait a few seconds</p>
                                 </div>
+                                @if ($message = Session::get('success'))
+                                    <div class="alert alert-success">
+                                        <p>{{ $message }}</p>
+                                    </div>
+                                @endif
                                 <div class="card-body">
-                                    <form role="form" method="POST" action="{{ route('verification.send') }}">
+                                    <form role="form" method="POST" action="{{ route('password.request') }}">
                                         @csrf
                                         @method('post')
+                                        
                                         <div class="flex flex-col mb-3">
                                             <input type="email" name="email" class="form-control form-control-lg" placeholder="Email" value="{{ old('email') }}" aria-label="Email">
                                             @error('email') <p class="text-danger text-xs pt-1"> {{$message}} </p>@enderror
                                         </div>
                                         <div class="row">
                                         <div class="col-6 text-center">
-                                            <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Verify</button>
+                                            <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Reset</button>
                                         </div>
                                         <div class="col-6 text-center ">
-                                            <a href="route{{'login'}}" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Back</a>
+                                            <a href="{{ route('login') }}" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Back</a>
                                         </div>
                                         </div>
                                     </form>

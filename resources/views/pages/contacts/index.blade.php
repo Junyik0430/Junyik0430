@@ -32,6 +32,9 @@
                                         Create By</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Company Name</th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Create Date</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -56,6 +59,9 @@
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-sm font-weight-bold mb-0">{{ $contact->c_owner}}</p>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <p class="text-sm font-weight-bold mb-0">{{ $contact->c_company}}</p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-sm font-weight-bold mb-0">{{ $contact->created_at->format('d/m/Y')}}</p>

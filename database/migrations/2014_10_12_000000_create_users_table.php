@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('postal')->nullable();
             $table->text('about')->nullable();
-            $table->tinyInteger('role_as')->default('1');
+            $table->tinyInteger('role_as')->default('0');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -19,6 +19,10 @@ function callbackCatch(error){
     console.error('Error:', error)
 }
 </script>
+{!! htmlScriptTagJsApi([
+    'callback_then' => 'callbackThen',
+    'callback_catch' => 'callbackCatch',
+]) !!}
 @section('content')
     <main class="main-content  mt-0">
         <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
